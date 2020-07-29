@@ -563,15 +563,18 @@ export default {
       this.convertResult = false
     },
     populateFromSavedABI () {
+      this.selectedWellKnown = ''
+      if(!this.selectedSavedAbi){return}
       const getABI = JSON.parse(localStorage.getItem('savedContracts')).filter(
         x => x.name === this.selectedSavedAbi.name
       )
+
       this.contractAddress = getABI[0].address
       this.abi = getABI[0].abi
-      this.selectedWellKnown = ''
     },
     populateFromWellKnown () {
-      this.contractAddress = this.selectedWellKnown.contractAddress
+      if(!this.selectedWellKnown){return}
+      this.contractAddress = this.selectedWellKnown.contractAddress.filter(x => x.network === this.$web3.chainId).map(x => x.address).toString()
       this.abi = JSON.stringify(this.selectedWellKnown.abi)
       this.selectedSavedAbi = ''
     },
