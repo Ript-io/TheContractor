@@ -108,22 +108,22 @@
               v-model="convertResult"
             >Convert result into integer</vs-checkbox>
           </div>
-          <div v-else-if="selectedAbi.stateMutability === 'payable'" style="display:flex">
-            <label>Enter Amount Here</label>
+          <div v-else-if="selectedAbi.stateMutability === 'payable'">
+            <label>Enter Amount Here</label><div style="display:flex">
               <vs-input
                 style="width:100%; margin-bottom:5px"
                 v-model="payableAmount"
                 :placeholder="convertToOne ? 'ONE' : 'Wei'"
-              />                  <vs-tooltip
+              />                  
+              <vs-tooltip
                     color="darkred"
-                    class="flex"
                     position="left"
                     title="Convert to ONE"
                     text="If checked, the number provided will be automatically converted from ONE to Wei. However, only use if you know what you are doing!"
                   >
                     <label style="color:grey">ONE</label>
                     <vs-checkbox v-model="convertToOne" />
-                  </vs-tooltip>
+                  </vs-tooltip></div>
 
             <div v-for="(input,index) in selectedAbi.inputs" :key="input.name">
               <label>{{input.name}}</label>
