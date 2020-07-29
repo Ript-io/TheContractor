@@ -235,7 +235,7 @@ export default {
       convertToOne: false,
       payableAmount: '',
       explorerLink: process.env.NODE_ENV === 'production' ? 'https://explorer.harmony.one' : 'https://explorer.testnet.harmony.one',
-      wellKnownAbi: wellKnown,
+      wellKnownAbi: wellKnown.filter(x => x.contractAddress.every(y => y.network === this.$web3.chainId)),
       selectedWellKnown: [],
       getUser: {
         address: ''
@@ -244,6 +244,7 @@ export default {
   },
   mounted () {
     this.selectedSavedAbi = ''
+    window.test = wellKnown
     this.getContractList()
   },
   methods: {

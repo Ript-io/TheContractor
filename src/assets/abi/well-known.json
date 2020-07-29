@@ -1,7 +1,12 @@
 [
     {
         "name": "bUSD",
-        "contractAddress": "one194rafykqj7q5x9cuk4mjyjlrn2salawwvj4uz6",
+        "contractAddress": [
+            {
+                "address": "one194rafykqj7q5x9cuk4mjyjlrn2salawwvj4uz6",
+                "network": 2
+            }
+        ],
         "abi": [
             {
                 "constant": true,
@@ -931,7 +936,12 @@
     },
     {
         "name": "Token Creator",
-        "contractAddress": "",
+        "contractAddress": [
+            {
+                "address": "",
+                "network": 2
+            }
+        ],
         "abi": [
             {
                 "inputs": [
