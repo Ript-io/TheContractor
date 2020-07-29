@@ -1,4 +1,4 @@
-# thecontractor
+# The Contractor -- Developed by Ript.io
 
 ## Project setup
 ```
