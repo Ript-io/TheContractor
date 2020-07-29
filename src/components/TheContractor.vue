@@ -2,12 +2,25 @@
   <vs-row vs-justify="space-around">
     <vs-col vs-type="flex" vs-w="6">
       <vs-card title="The Contractor">
-        <vs-alert style="margin-bottom:10px" active="true">
+        <div style="display:flex">
+        <vs-alert style="margin-bottom:10px; align-self:center" active="true">
           Enter your contract's ABI and address below. You can save your ABI for later, this is stored in your browser's local storage and will not follow you to other devices. The list will be pre-populated with
           well-known contracts, such as, the Ript Token Creator ABI and bUSD implementation ABI.
-        </vs-alert>
-        <div style="margin:10px"><vs-button v-on:click="login" v-if="!getUser.address">Login</vs-button><h4 v-else>Logged In: {{getUser.address}}</h4></div>
+        </vs-alert>        <div v-if="$env !== 'mainnet'" style="align-self:center; margin-left:10px">
+      <vs-chip color="red" label small class="font-weight-medium">
+        {{ $env.toUpperCase() }}
+      </vs-chip>
+    </div>        
+    <div v-else style="align-self:center; margin-left:10px">
+            <vs-chip color="primary" label small class="font-weight-medium">
+        {{ $env.toUpperCase() }}
+      </vs-chip>
+    </div>
+    <div  v-if="!getUser.address" style="width:75px;margin-left:10px; align-self:center"><vs-button style="width:75px" v-on:click="login">Login</vs-button>          </div>
+</div>
+<div style="display:flex" v-if="getUser.address"><h3 style="margin-top:10px; margin-bottom:10px">Logged In: {{getUser.address}}</h3><vs-button @click="logout" title="Logout" color="primary" type="flat" icon="logout"></vs-button></div>
         <div style="display:flex; margin-bottom:5px">
+      
           <vs-input
             style="width:50%"
             label="Contract Address"
@@ -15,7 +28,7 @@
             v-model="contractAddress"
           />
           <v-select
-            style="align-self:center; width:25%; margin-left:5px"
+            style="align-self:flex-end; width:25%; margin-left:5px"
             v-model="selectedSavedAbi"
             label="name"
             @input="populateFromSavedABI"
@@ -23,7 +36,7 @@
             placeholder="Saved Contracts"
           />
           <v-select
-            style="align-self:center; width:25%; margin-left:5px"
+            style="align-self:flex-end; width:25%; margin-left:5px"
             v-model="selectedWellKnown"
             label="name"
             @input="populateFromWellKnown"
@@ -243,6 +256,10 @@ export default {
         this.$vs.notify({title:'Please install Math Wallet', time:10000, text:'Math wallet is required to unlock all functionality.', color:'danger', icon:'error'})
 
       }
+    },
+        async logout () {
+      await window.harmony.forgetIdentity()
+      this.getUser.address = ''
     },
     convertResultToOne () {
       this.result = this.convertResult ? new Unit(this.result).asWei().toOne() : new Unit(this.result).asOne().toWei()
