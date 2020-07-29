@@ -1,4 +1,4 @@
-# The Contractor -- Developed by Ript.io
+# Harmony Contract Interactor -- The Contractor -- Developed by Ript.io
 
 ## Project setup
 ```
